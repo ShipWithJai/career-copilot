@@ -1,0 +1,30 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jai Parkash", email = "jai8122002@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "asyncpg>=0.32.0",
+    "pydantic[email]>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "fastapi>=0.143.0",
+    "uvicorn>=0.54.0",
+    "pyjwt>=2.15.1",
+    "passlib[bcrypt]>=1.7.4",
+    "python-multipart>=0.0.32",
+    "pypdf2>=3.0.1",
+    "google-generativeai>=0.8.6",
+]
+
+[project.scripts]
+backend = "backend:main"
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
+[tool.hatch.build.targets.wheel]
+packages = ["app"]

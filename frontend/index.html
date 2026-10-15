@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8f5">
+    <title>Career Copilot — your next move, made clearer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="#" aria-label="Career Copilot home">
+            <span class="brand-mark" aria-hidden="true">C</span>
+            <span>career<span class="brand-light">copilot</span></span>
+        </a>
+        <div id="session-controls" class="session-controls" hidden>
+            <span id="session-email" class="session-email"></span>
+            <button id="logout-button" class="button button-quiet" type="button">Sign out</button>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section id="auth-section" class="auth-layout">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="eyebrow-dot"></span> YOUR CAREER, IN MOTION</p>
+                <h1>Make your next move<br>your <span>best one.</span></h1>
+                <p class="hero-description">Bring your experience and your ambition. We’ll help you find the roles that fit and tailor your resume for the opportunity.</p>
+                <div class="hero-note">
+                    <span class="note-icon" aria-hidden="true">✳</span>
+                    <span>One focused workspace for your job search.</span>
+                </div>
+            </div>
+            <div class="auth-card">
+                <div class="auth-card-heading">
+                    <p class="eyebrow">GET STARTED</p>
+                    <h2 id="auth-heading">Welcome back</h2>
+                    <p id="auth-subheading">Sign in to pick up where you left off.</p>
+                </div>
+                <form id="auth-form">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Your password" autocomplete="current-password" required>
+                    <button id="auth-submit" class="button button-primary button-wide" type="submit">Sign in <span aria-hidden="true">→</span></button>
+                    <p id="auth-message" class="message" role="status" aria-live="polite"></p>
+                </form>
+                <p class="auth-switch"><span id="auth-switch-copy">New to Career Copilot?</span> <button id="auth-switch" class="text-button" type="button">Create an account</button></p>
+            </div>
+        </section>
+
+        <section id="workspace" hidden>
+            <div class="workspace-heading">
+                <div>
+                    <p class="eyebrow"><span class="eyebrow-dot"></span> YOUR WORKSPACE</p>
+                    <h1>Build momentum.</h1>
+                    <p class="hero-description">Add your resume, discover relevant roles, and make every application count.</p>
+                </div>
+                <div class="heading-badge"><span aria-hidden="true">✳</span> Your next chapter starts here</div>
+            </div>
+
+            <div class="workspace-grid">
+                <section class="panel resume-panel" aria-labelledby="resume-heading">
+                    <div class="panel-heading">
+                        <span class="step-number">01</span>
+                        <div>
+                            <p class="eyebrow">START WITH YOUR STORY</p>
+                            <h2 id="resume-heading">Your resume</h2>
+                        </div>
+                    </div>
+                    <p class="panel-description">Upload a PDF resume. We’ll extract your experience and use it as the foundation for tailored applications.</p>
+                    <form id="resume-form" class="form-stack">
+                        <label for="resume-title">Give this resume a name</label>
+                        <input type="text" id="resume-title" name="title" placeholder="e.g. Product Designer — master resume" required maxlength="255">
+                        <label for="resume-file">Resume PDF</label>
+                        <label class="file-drop" for="resume-file">
+                            <span class="upload-icon" aria-hidden="true">↑</span>
+                            <span class="file-copy"><strong id="file-name">Choose a PDF to upload</strong><small>PDF format · Select a file from your device</small></span>
+                            <span class="file-browse">Browse</span>
+                        </label>
+                        <input class="visually-hidden" type="file" id="resume-file" name="file" accept="application/pdf,.pdf" required>
+                        <button class="button button-primary" type="submit">Upload resume <span aria-hidden="true">→</span></button>
+                        <p id="upload-message" class="message" role="status" aria-live="polite"></p>
+                    </form>
+                </section>
+
+                <section class="panel search-panel" aria-labelledby="jobs-heading">
+                    <div class="panel-heading">
+                        <span class="step-number">02</span>
+                        <div>
+                            <p class="eyebrow">FIND YOUR NEXT OPPORTUNITY</p>
+                            <h2 id="jobs-heading">Explore roles</h2>
+                        </div>
+                    </div>
+                    <p class="panel-description">Search the opportunities already in your database to find roles that match your experience.</p>
+                    <form id="search-jobs-form" class="form-stack compact-form">
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="search-query">What are you looking for?</label>
+                                <input type="search" id="search-query" name="q" placeholder="e.g. Senior data analyst" minlength="3" required>
+                            </div>
+                            <div class="field">
+                                <label for="search-location">Location <span class="optional-label">optional</span></label>
+                                <input type="text" id="search-location" name="location" placeholder="Any location">
+                            </div>
+                        </div>
+                        <button class="button button-dark" type="submit">Search jobs <span aria-hidden="true">⌕</span></button>
+                        <p id="search-message" class="message" role="status" aria-live="polite"></p>
+                    </form>
+                </section>
+            </div>
+
+            <section id="results-section" class="results-section" aria-labelledby="results-heading" hidden>
+                <div class="results-heading">
+                    <div>
+                        <p class="eyebrow">MATCHED TO YOUR SEARCH</p>
+                        <h2 id="results-heading">Opportunities for you</h2>
+                    </div>
+                    <span id="results-count" class="results-count"></span>
+                </div>
+                <div id="job-results" class="job-results"></div>
+            </section>
+            <footer class="page-footer">Made by Jai Parkash</footer>
+        </section>
+    </main>
+    <script src="auth.js"></script>
+    <script src="resume.js"></script>
+</body>
+</html>
