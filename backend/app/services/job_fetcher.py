@@ -1,9 +1,10 @@
-import asyncio
+import asyncio,json
 from app.db.session import AsyncSessionLocal
 from app.models.job import Job
 from app.services.embeddings import get_embedding
 from app.services.job_sources.adzuna import fetch_adzuna_jobs
 from app.core.celery_app import celery_app
+
 
 async def ingest_jobs(raw_jobs: list[dict]):
     """Iterates through fetched jobs, generates vector embeddings, and persists them."""
@@ -12,6 +13,10 @@ async def ingest_jobs(raw_jobs: list[dict]):
             content = f"Title: {job_data['title']}\nCompany: {job_data.get('company', '')}\nLocation: {job_data.get('location', '')}\nDescription: {job_data.get('description', '')}"
 
             vector = await get_embedding(content)
+            
+            # Ensure the vector is a Python list of floats, not a string
+            if isinstance(vector, str):
+                vector = json.loads(vector)
             
             new_job = Job(
                 title=job_data.get("title", "No Title"),
@@ -30,7 +35,8 @@ async def ingest_jobs(raw_jobs: list[dict]):
         await session.commit()
 
         print("Successfully ingested and vectorized jobs batch.")
-
+        
+        
 async def fetch_and_ingest():
     target_searches = [
         {"role": "AI Engineer", "location": "Delhi"},
@@ -45,7 +51,7 @@ async def fetch_and_ingest():
         batch = await fetch_adzuna_jobs(
             role=search["role"], 
             location=search["location"], 
-            results_limit=10
+            results_limit=20
         )
         
         if batch:

@@ -4,11 +4,13 @@ from app.core.config import get_settings
 
 settings = get_settings()
 
-async def fetch_adzuna_jobs(role: str, location: str, results_limit: int = 10) -> List[Dict[str, Any]]:
+async def fetch_adzuna_jobs(role: str, location: str |None, results_limit: int = 10) -> List[Dict[str, Any]]:
     app_id = settings.ADZUNA_APP_ID
     app_key = settings.ADZUNA_APP_KEY
     country = "in"
     url = f"https://api.adzuna.com/v1/api/jobs/{country}/search/1"
+    if not location:
+        location="India"
     
     params = {
         "app_id": app_id,

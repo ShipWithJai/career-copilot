@@ -18,7 +18,7 @@ async def get_embedding(text: str) -> list[float]:
     if not response.embeddings or not response.embeddings[0].values:
         raise ValueError("Gemini API failed to return an embedding.")
         
-    return response.embeddings[0].values
+    return list(response.embeddings[0].values)
 
 if __name__ == "__main__":
     import asyncio

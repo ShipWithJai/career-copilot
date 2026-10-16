@@ -6,7 +6,11 @@ from app.api.routes.deps import get_current_user
 from app.db.session import get_db
 from app.models.job import Job
 from app.models.user_resume import User, Resume
-from app.services.customizer import generate_tailored_resume_data, create_pdf
+from app.services.customizer import (
+    ResumeValidationError,
+    create_pdf,
+    generate_tailored_resume_data,
+)
 
 router = APIRouter(prefix="/customizer", tags=["customizer"])
 
@@ -32,10 +36,16 @@ async def customize_resume_for_job(
     if not base_resume:
         raise HTTPException(status_code=400, detail="No base resume found. Please upload one first.")
         
-    tailored_data = await generate_tailored_resume_data(
-        base_resume=base_resume.content, 
-        job_description=job.description
-    )
+    try:
+        tailored_data = await generate_tailored_resume_data(
+            base_resume=base_resume.content,
+            job_description=job.description,
+        )
+    except ResumeValidationError as exc:
+        raise HTTPException(
+            status_code=502,
+            detail="The generated resume did not pass validation. Please try again.",
+        ) from exc
     
     pdf_bytes = create_pdf(tailored_data)
     
