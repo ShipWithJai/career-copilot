@@ -2,6 +2,8 @@
 
 Career Copilot is a FastAPI-based web application that automates the job search and resume tailoring process. It uses asynchronous background workers to parse resumes, fetch live job postings, and dynamically generate PDF resumes tailored to specific job descriptions using Google Gemini.
 
+https://github.com/user-attachments/assets/532e8c11-5c0d-4dd6-af2e-0700dfc2c630
+
 ## System Architecture
 
 *   **FastAPI:** Serves as the primary asynchronous web server and traffic controller.
